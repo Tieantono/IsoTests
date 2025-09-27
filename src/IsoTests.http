@@ -1,0 +1,6 @@
+@IsoTests_HostAddress = http://localhost:5167
+
+GET {{IsoTests_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
