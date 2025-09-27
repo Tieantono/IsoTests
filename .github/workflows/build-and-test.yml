@@ -48,10 +48,10 @@ jobs:
       - name: Test
         env:
           ConnectionStrings__Default: "Host=localhost;Port=5432;Database=${{ env.POSTGRES_DB }};Username=postgres;Password=${{ env.POSTGRES_PASSWORD }}"
-        run: dotnet run --project ./tests/IsoTests.Tests --no-build -- --coverage --coverage-output-format cobertura --coverage-output ./coveragereport/coverage.cobertura.xml
+        run: dotnet run --project ./tests/IsoTests.Tests --no-build -- --coverage --coverage-output-format cobertura --coverage-output ./coverage.cobertura.xml
 
       - name: ReportGenerator
         uses: danielpalme/ReportGenerator-GitHub-Action@5.4.16
         with:
-          reports: cobertura.xml
+          reports: '**/cobertura.xml'
           targetdir: coveragereport
