@@ -11,6 +11,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     env:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: iso_test_db
@@ -65,11 +67,11 @@ jobs:
 
       - name: Add comment to PR
         if: github.event_name == 'pull_request'
-        run: gh pr comment $PR_NUMBER --edit-last --create-if-none --body-file coveragereport/SummaryGithub.md
+        run: gh pr comment $PR_NUMBER --edit-last --create-if-none --body-file coveragereport/Summary.md
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}
     
       - name: Publish coverage in build summary
-        run: cat coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
+        run: cat coveragereport/Summary.md >> $GITHUB_STEP_SUMMARY
         shell: bash
