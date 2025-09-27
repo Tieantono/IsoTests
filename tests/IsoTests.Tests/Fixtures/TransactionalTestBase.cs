@@ -20,7 +20,6 @@ public abstract class TransactionalTestBase<TContext> : IAsyncLifetime
     {
         Db = await _factory.CreateDbContextAsync();
 
-        await Db.Database.EnsureCreatedAsync();
         _transaction = await Db.Database.BeginTransactionAsync();
     }
 

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace IsoTests.Tests.Tests;
 
 public class VideoGameTests(DbContextFactoryFixture factoryFixture, ITestOutputHelper output)
-        : TransactionalTestBase<IsoDbContext>(factoryFixture.Factory), IClassFixture<DbContextFactoryFixture>
+        : TransactionalTestBase<IsoDbContext>(factoryFixture.Factory)
 {
     [Theory]
     [ClassData(typeof(VideoGameFormFactory))]
@@ -37,13 +37,12 @@ public class VideoGameTests(DbContextFactoryFixture factoryFixture, ITestOutputH
         Assert.All(newGame.GenreIds, genreId =>
         Assert.Contains(createdGame.Genres, g => g.Id == genreId));
 
-
         var games = await Db.VideoGames
             .Include(vg => vg.Genres)
             .ToListAsync(CancellationToken.None);
 
         Assert.Contains(games, g => g.Id == createdGameId);
-        Assert.Equal(4, games.Count);
+        Assert.Single(games);
     }
 }
 
