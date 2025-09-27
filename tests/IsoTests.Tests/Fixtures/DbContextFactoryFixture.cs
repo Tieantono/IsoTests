@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 
 [assembly: AssemblyFixture(typeof(DbContextFactoryFixture))]
+[assembly: CaptureConsole]
 
 namespace IsoTests.Tests.Fixtures;
 
@@ -27,6 +28,8 @@ public class DbContextFactoryFixture
             .Build();
 
         var connString = configuration.GetConnectionString("Default");
+
+        Console.WriteLine("Connection String: {0}", connString ?? "NULL");
 
         var options = new DbContextOptionsBuilder<IsoDbContext>()
             .UseNpgsql(connString)
