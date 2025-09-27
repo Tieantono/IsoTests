@@ -47,7 +47,7 @@ jobs:
 
       - name: Test
         env:
-          ConnectionStrings__Default: "Host=postgres;Port=5432;Database=${{ env.POSTGRES_DB }};Username=postgres;Password=${{ env.POSTGRES_PASSWORD }}"
+          ConnectionStrings__Default: "Host=localhost;Port=5432;Database=${{ env.POSTGRES_DB }};Username=postgres;Password=${{ env.POSTGRES_PASSWORD }}"
         run: dotnet run --project ./tests/IsoTests.Tests --no-build -- --coverage --coverage-output-format cobertura --coverage-output ./coveragereport/coverage.cobertura.xml
 
       - name: ReportGenerator
